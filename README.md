@@ -60,15 +60,13 @@ ARN is an open protocol specification for AI service discovery and capability ad
 ```
 arn-protocol/
 ├── cmd/                    # Command-line tools
-├── internal/               # Internal packages
-├── pkg/                    # Public packages
-│   ├── protocol/           # Core protocol implementation
-│   │   ├── types.go       # Protocol types and constants
-│   │   └── handler.go     # Protocol message handling
-│   └── network/           # Network layer
-│       └── server.go      # TCP/UDP server implementation
-└── examples/              # Example implementations
-    └── coupon_ai/         # Example AI service using ARN
+│   └── server/            # ARN server implementation
+└── pkg/                    # Public packages
+    ├── protocol/           # Core protocol implementation
+    │   ├── types.go       # Protocol types and constants
+    │   └── handler.go     # Protocol message handling
+    └── network/           # Network layer
+        └── server.go      # TCP/UDP server implementation
 ```
 
 ## MCP Integration
@@ -110,8 +108,8 @@ func main() {
 ### Registering an AI Service
 ```go
 cap := &protocol.Capability{
-    ID:   "coupon-finder",
-    Name: "Brand Coupon Discovery",
+    ID:   "my-ai-service",
+    Name: "Example AI Service",
     Type: "DISCOVER",
     MCPEnabled: true,  // Can use MCP data sources
 }
