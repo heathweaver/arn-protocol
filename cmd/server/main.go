@@ -17,6 +17,7 @@ import (
 var (
 	tcpAddr = flag.String("tcp", ":7777", "TCP address to listen on")
 	udpAddr = flag.String("udp", ":7778", "UDP address to listen on")
+	healthCheck = flag.Bool("health", false, "Run health check and exit")
 )
 
 // MCPBridgeManager handles MCP data source integration
@@ -36,6 +37,11 @@ func (m *MCPBridgeManager) handleMCPBridge(bridge *protocol.MCPBridge) error {
 
 func main() {
 	flag.Parse()
+
+	// Handle health check
+	if *healthCheck {
+		os.Exit(0)
+	}
 
 	// Create context for graceful shutdown
 	ctx, cancel := context.WithCancel(context.Background())
