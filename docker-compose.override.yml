@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  arn-server:
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/London  # Set your timezone
+    volumes:
+      - ./data/arn-server:/data  # Persistent storage for ARN server
+    networks:
+      - arn-network
+      # Add your Synology's Docker network if needed
+      # - synology_docker_network
+
+  coupon-ai:
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/London
+    volumes:
+      - ./data/coupon-ai:/data  # Persistent storage for coupon AI service
+    networks:
+      - arn-network
+      # Add your Synology's Docker network if needed
+      # - synology_docker_network
+
+  retail-data:
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/London
+    volumes:
+      - ./data/retail-data:/data  # Persistent storage for retail data
+    networks:
+      - arn-network
+      # Add your Synology's Docker network if needed
+      # - synology_docker_network
+
+networks:
+  arn-network:
+    driver: bridge
+  # Uncomment and modify if you need to connect to existing Synology Docker network
+  # synology_docker_network:
+  #   external: true
+  #   name: your_synology_network_name
